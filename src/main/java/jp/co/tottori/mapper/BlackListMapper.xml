@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.tottori.mapper.BlackListMapper">
+
+	<resultMap id="BlackListResult" type="jp.co.tottori.entity.BlackList">
+		<result column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
+		<result column="address" property="address" />
+		<result column="mail" property="mail" />
+		<result column="phoneNumber" property="phoneNumber" />
+		<result column="book_name" property="book_name" />
+		<result column="isbn" property="isbn" />
+		<result column="rental_time" property="rental_time" />
+		<result column="rental_time" property="return_time" />
+	</resultMap>
+
+	<select id="getBlackList" resultMap="BlackListResult" >
+		select user_id,user_name,address,mail,phoneNumber,book_name,isbn,rental_time
+		from library.blacklist
+		where NOW() >= DATE_ADD(rental_time, INTERVAL 15 DAY)
+	</select>
+
+</mapper>

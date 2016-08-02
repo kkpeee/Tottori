@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.tottori.mapper.ReserveMapper">
+	<resultMap id="ReserveResult" type="jp.co.tottori.entity.Search">
+        <result column="book_id" property="bookId" />
+        <result column="book_name" property="bookName" />
+        <result column="isbn" property="isbn" />
+        <result column="author_name" property="authorName" />
+        <result column="publisher" property="publisher" />
+        <result column="library_id" property="libraryId" />
+        <result column="library_name" property="libraryName" />
+        <result column="status_name" property="statusName" />
+        <result column="document_name" property="documentName" />
+        <result column="shelf_id" property="shelfId" />
+    </resultMap>
+
+    <resultMap id="DocumentResult" type="jp.co.tottori.dto.DocumentDto">
+        <result column="document_id" property="documentId" />
+        <result column="document_name" property="documentName" />
+    </resultMap>
+
+    <resultMap type="jp.co.tottori.entity.Reserve" id="CheckUserResult">
+    	<result column="user_id" property="userId"/>
+    	<result column="isbn" property="isbn"/>
+    	<result column="book_name" property="bookName"/>
+    </resultMap>
+
+    <select id="getSearchedBook" resultMap="ReserveResult">
+        SELECT *
+        FROM library.search
+      <where>
+       <if test="bookName != null">
+        AND book_name like '%${bookName}%'
+        </if>
+        <if test="authorName != null">
+        AND author_name like '%${authorName}%'
+        </if>
+        <if test="publisher != null">
+        AND publisher like '%${publisher}%'
+        </if>
+        <if test="isbn != null">
+        AND isbn like '%${isbn}%'
+        </if>
+        <if test="documentName != null">
+        AND document_name like '%${documentName}%'
+        </if>
+        <if test="shelfId != null">
+        AND shelf_id like #{shelfId}
+        </if>
+        </where>
+    </select>
+
+    <select id="documentName" resultMap="DocumentResult">
+		SELECT * FROM library.document ;
+	</select>
+
+ 	<select id="getCheckBook" resultMap="ReserveResult">
+		SELECT * FROM library.search WHERE book_id = #{bookId}
+	</select>
+
+	<select id="checkUser" resultMap="CheckUserResult">
+		SELECT user_id FROM library.user WHERE user_id = #{userId}
+	</select>
+
+	<insert id="reserveInsert">
+	INSERT INTO library.reserve (user_id, isbn, book_id, library_id)
+	 VALUES (#{userId}, #{isbn}, #{bookId}, #{libraryId}) ;
+	</insert>
+
+	<select id="reservedBook" resultMap="CheckUserResult">
+		SELECT book_name FROM library.mypage_reserve WHERE user_id = #{userId} AND book_name = #{bookName} AND
+		isbn = #{isbn}
+	</select>
+		<delete id="reserveCancel">
+	DELETE FROM library.reserve WHERE reserve_id = #{resreve_id};
+	</delete>
+</mapper>

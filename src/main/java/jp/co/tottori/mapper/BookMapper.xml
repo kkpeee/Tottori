@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.tottori.mapper.BookMapper">
+
+	<resultMap id="BookResult" type="jp.co.tottori.dto.BookDto">
+        <result column="book_id" property="bookId" />
+        <result column="book_kanaByte" property="bookKanaByte" />
+        <result column="book_name" property="bookName" />
+        <result column="author_kanaByte" property="authorKanaByte" />
+        <result column="author_name" property="authorName" />
+        <result column="rental_time" property="rentalTime" />
+        <result column="shelf_id" property="shelfId" />
+		<result column="status_id" property="statusId" />
+        <result column="document_id" property="documentId" />
+        <result column="library_id" property="libraryId" />
+    </resultMap>
+
+    <resultMap id="LibraryResult" type="jp.co.tottori.dto.LibraryDto">
+        <result column="library_id" property="libraryId" />
+        <result column="library_name" property="libraryName" />
+    </resultMap>
+
+    <resultMap id="RentalResult" type="jp.co.tottori.dto.MypageRentalDto">
+		<result column="rental_time" property="rentalTime" />
+		<result column="book_name" property="bookName" />
+			<result column="user_name" property="userName" />
+		<result column="author_name" property="authorName" />
+    </resultMap>
+
+    <resultMap id="StatusResult" type="jp.co.tottori.dto.StatusDto">
+        <result column="status_id" property="statusId" />
+        <result column="status_name" property="statusName" />
+    </resultMap>
+
+    <resultMap id="MypageRentalResult" type="jp.co.tottori.dto.MypageRentalDto">
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="book_name" property="bookName" />
+		<result column="rental_time" property="rentalTime" />
+		<result column="rental_time" property="returnTime" />
+	</resultMap>
+
+    <!-- 図書登録 -->
+	<insert id="insert">
+		INSERT INTO library.book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
+		 , isbn, shelf_id, document_id, library_id, status_id)
+		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName}
+		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, 1) ;
+	</insert>
+
+	<!-- 図書館名取得 -->
+	<select id="library" resultMap="LibraryResult">
+		SELECT * FROM library.library ;
+	</select>
+
+	<!-- 貸出実行 -->
+	<insert id="rental">
+		INSERT INTO library.rental (user_id, isbn, library_id, rental_time)
+		 VALUES (#{userId}, #{UseIsbn}, #{libraryId}, #{rentalTime}) ;
+	</insert>
+
+	<!-- 返却実行 -->
+	<delete id="returnBook">
+		DELETE FROM library.rental WHERE isbn like #{isbn} AND library_id like #{libraryId};
+	</delete>
+
+	<select id="bookCheck" resultMap="BookResult">
+		SELECT * FROM library.book WHERE book_name = #{bookName} OR isbn = #{isbn} AND library_id = #{libraryId};
+	</select>
+
+	<select id="rentalConfirm" resultMap="RentalResult">
+		SELECT * FROM library.mypage_rental WHERE user_id = #{userId};
+	</select>
+
+	<!-- 延滞チェック -->
+	<select id="delinquentBook" resultMap="MypageRentalResult">
+		SELECT * FROM library.mypage_rental WHERE user_id = #{userId} AND #{rentalTime} >= rental_time;
+	</select>
+
+	<select id="lendConfirm" resultMap="BookResult">
+		SELECT book_name,isbn,status_id FROM library.book WHERE isbn = #{useIsbn} AND library_id = #{libraryId};
+	</select>
+
+	<!-- ステータス変更 -->
+	<update id="updateStatus">
+		UPDATE library.book SET status_id = #{statusId} WHERE isbn = #{isbn}
+	</update>
+
+	<update id="changeStatus">
+		UPDATE library.book SET status_id = #{statusId} WHERE isbn = #{isbn} AND library_id = #{libraryId};
+	</update>
+
+	<!-- ステータス名取得 -->
+	<select id="status" resultMap="StatusResult">
+		SELECT * FROM library.status ;
+	</select>
+
+	<select id="bookManagement" resultMap="BookResult">
+		SELECT * FROM library.book ;
+	</select>
+
+	<select id="rentalManagement" resultMap="RentalResult">
+		SELECT * FROM library.mypage_rental ;
+	</select>
+
+	<update id="changeDate">
+		UPDATE library.rental SET lrental_time = #{date} WHERE user_id = #{userId} AND isbn = #{useIsbn} AND library_id = #{libraryId};
+	</update>
+</mapper>

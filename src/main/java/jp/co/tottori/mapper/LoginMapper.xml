@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.tottori.mapper.LoginMapper">
+
+	<resultMap id="MypageUserResult" type="jp.co.tottori.entity.MypageUser">
+		<result column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
+		<result column="address" property="address" />
+		<result column="mail" property="mail" />
+		<result column="phoneNumber" property="phoneNumber" />
+		<result column="library_id" property="library_id" />
+		<result column="insert_time" property="insert_time" />
+		<result column="update_time" property="update_time" />
+	</resultMap>
+
+	<resultMap id="MypageReserveResult" type="jp.co.tottori.entity.MypageReserve">
+		<result column="reserve_id" property="reserve_id" />
+		<result column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
+		<result column="book_name" property="book_name" />
+		<result column="reserve_time" property="reserve_time" />
+	</resultMap>
+
+	<resultMap id="MypageRentalResult" type="jp.co.tottori.entity.MypageRental">
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="book_name" property="bookName" />
+		<result column="rental_time" property="rentalTime" />
+		<result column="rental_time" property="returnTime" />
+	</resultMap>
+
+	<select id="getMypageUser" resultMap="MypageUserResult" parameterType="String">
+		select user_id,user_name,address,mail,phoneNumber,library_id,insert_time,update_time
+		from library.user
+		where user_id = #{id}
+	</select>
+
+	<select id="getMypageReserve" resultMap="MypageReserveResult" parameterType="String">
+		select *
+		from library.mypage_reserve
+		where user_id = #{id}
+	</select>
+
+	<select id="getMypageRental" resultMap="MypageRentalResult" parameterType="String">
+		select user_id,user_name,book_name,isbn,rental_time
+		from library.mypage_rental
+		where user_id = #{id}
+	</select>
+
+</mapper>
