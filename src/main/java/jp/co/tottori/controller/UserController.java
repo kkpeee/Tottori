@@ -57,9 +57,13 @@ public class UserController {
 			MypageUserDto login  = loginService.getMypageUser(form.getId());
 			if (login != null) {
 			model.addAttribute("loginUser", login);
+			MypageUserDto.setMypageUserDto(login);
 			List<MypageReserveDto> reserves  = loginService.getMypageReserve(form.getId());
+			MypageReserveDto.setMypageReserveDto(reserves);
 			List<MypageRentalDto> rentals  = loginService.getMypageRental(form.getId());
+			MypageRentalDto.setMypageRentalDto(rentals);
 			model.addAttribute("mypageReserves", reserves);
+
 			model.addAttribute("mypageRentals", rentals);
 			return "myPage";
 			} else {
@@ -76,6 +80,15 @@ public class UserController {
 		    	reserveService.reserveCancel(form.getReserve_id()[i]);
 			}
 	    }
+
+		MypageUserDto login  = MypageUserDto.getMypageUserDto();
+		List<MypageReserveDto> reserves  = loginService.getMypageReserve(login.getUser_id());
+		MypageReserveDto.setMypageReserveDto(reserves);
+		List<MypageRentalDto> rentals  = MypageRentalDto.getMypageRentalDto();
+
+		model.addAttribute("loginUser", login);
+		model.addAttribute("mypageReserves", reserves);
+		model.addAttribute("mypageRentals", rentals);
 				model.addAttribute("messages", "予約をキャンセルしました");
 				return "myPage";
 	}

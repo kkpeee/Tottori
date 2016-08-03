@@ -6,14 +6,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class BookRegisterForm {
 	private int bookId;
 	@NotEmpty(message = "エラー：書名のふりがなを入力してください")
 	private String bookKana;
-	@NotEmpty(message = "エラー：書名のふりがなを入力してください")
 	private String bookKanaByte;
 	@Size(max = 100, message = "エラー：書名が100文字を超えています")
 	@NotEmpty(message = "エラー：書名を入力してください")
@@ -27,13 +25,12 @@ public class BookRegisterForm {
 	@NotEmpty(message = "エラー：出版社名を入力してください")
 	private String publisher;
 	private Date rentalTime;
-	@NotBlank(message = "エラー：ISBNを入力してください")
+	@NotNull(message = "エラー：ISBNを入力してください")
 	private Integer isbn;
 	@Min(value=1, message = "エラー：棚番号は1以上で入力してください" )
-	@NotNull(message = "エラー：棚番号を入力してください")
-	private int shelfId;
-	@NotNull(message = "エラー：書類種類を選択してください")
-	private int documentId;
+	private Integer shelfId;
+	@Min(value=1, message = "エラー：書類種類は1以上で入力してください" )
+	private Integer documentId;
 	private int libraryId;
 	private int statusId;
 

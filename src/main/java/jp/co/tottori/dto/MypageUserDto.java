@@ -1,9 +1,17 @@
 package jp.co.tottori.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MypageUserDto {
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("session")
+public class MypageUserDto implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private static MypageUserDto myPageUserDto;
 	private String user_id;
 	private String user_name;
 	private String address;
@@ -12,6 +20,17 @@ public class MypageUserDto {
 	private int library_id;
 	private Date insert_time;
 	private Date update_time;
+
+	public static MypageUserDto getMypageUserDto() {
+		if (myPageUserDto == null) {
+			myPageUserDto = new MypageUserDto();
+		}
+		return myPageUserDto;
+	}
+
+	public static void setMypageUserDto(MypageUserDto Dto) {
+		myPageUserDto = Dto;
+	}
 
 	public String getUser_id() {
 		return user_id;

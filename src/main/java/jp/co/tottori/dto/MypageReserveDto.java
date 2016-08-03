@@ -1,15 +1,35 @@
 package jp.co.tottori.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class MypageReserveDto {
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("session")
+public class MypageReserveDto implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private static List<MypageReserveDto> myPageReserveDto;
 	private int reserve_id;
 	private String user_id;
 	private String user_name;
 	private String book_name;
 	private int isbn;
 	private Date reserve_time;
+
+	public static  List<MypageReserveDto> getMypageReserveDto() {
+		if (myPageReserveDto == null) {
+			myPageReserveDto = new ArrayList<MypageReserveDto>();
+		}
+		return myPageReserveDto;
+	}
+	public static void setMypageReserveDto(List<MypageReserveDto> DtoList) {
+		myPageReserveDto = DtoList;
+	}
 
 	public String getUser_id() {
 		return user_id;

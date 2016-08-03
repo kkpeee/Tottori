@@ -13,7 +13,7 @@
     <context:component-scan base-package="jp.co.tottori" />
     <mvc:annotation-driven />
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-       <property name="basename" value="classpath:ValidatorMessages" />
+       <property name="basename" value="jp.co.tottor/messagesi" />
     </bean>
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -45,7 +45,31 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     <mvc:resources mapping="/resources/**" location="/resources/" />
-
+	 <mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/reserveCancel"/>
+        <mvc:mapping path="/userRegister"/>
+        <mvc:mapping path="/userRegisterConfirm"/>
+        <mvc:mapping path="/userSearch"/>
+        <mvc:mapping path="/userUpdate"/>
+        <mvc:mapping path="/userUpdateConfirm"/>
+        <mvc:mapping path="/userManagement"/>
+        <mvc:mapping path="/bookRegister"/>
+        <mvc:mapping path="/bookRegisterConfirm"/>
+        <mvc:mapping path="/returnBook"/>
+        <mvc:mapping path="/returnConfirm"/>
+        <mvc:mapping path="/lendBook"/>
+        <mvc:mapping path="/lendConfirm"/>
+        <mvc:mapping path="/blackList"/>
+        <mvc:mapping path="/changeStatus"/>
+        <mvc:mapping path="/bookManagement"/>
+        <bean class="jp.co.tottori.handler.ManagerInterceptor" />
+    </mvc:interceptor>
+        <mvc:interceptor>
+        <mvc:mapping path="/home"/>
+        <bean class="jp.co.tottori.handler.UserInterceptor" />
+    </mvc:interceptor>
+  </mvc:interceptors>
     <!-- @Transactionalを使用するために定義 -->
    <tx:annotation-driven />
 	</beans>

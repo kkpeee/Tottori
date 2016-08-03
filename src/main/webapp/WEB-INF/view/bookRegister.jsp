@@ -43,16 +43,25 @@
 		     </tr>
 		     <tr>
 		        <td bgcolor="#99CC00" >ISBN</td>
-		        <td><input name = "isbn" value = "${ insertBook.isbn }"/></td>
-		     </tr>
-		      <tr>
-		        <td bgcolor="#99CC00" >書類種類</td>
-		        <td><input name = "documentId" value = "${ insertBook.documentId }"/></td>
+		        <td><input type = "number" name = "isbn" value = "${ insertBook.isbn }"/></td>
 		     </tr>
 		     <tr>
 		        <td bgcolor="#99CC00" >棚番号</td>
-		        <td><input name = "shelfId" value = "${ insertBook.shelfId }"/></td>
+		        <td><input type ="number" name = "shelfId" value = "${ insertBook.shelfId }"/></td>
 		     </tr>
+		     <tr>
+		        <td bgcolor="#99CC00" >書類種類</td>
+		        <td>
+					<select name = "documentId">
+        				<option value= "null">(選択出来ます)</option>
+						<c:forEach items = "${ Document }" var = "document">
+							<option value = "${ document.documentId }" <c:if test = "${ document.documentId == book.documentId }">
+							selected</c:if> >
+							<c:out value = "${ document.documentName }" /></option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
 		     <tr>
 		        <td bgcolor="#99CC00" >図書館番号</td>
 		        <td>

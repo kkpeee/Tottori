@@ -39,21 +39,19 @@ public class ManageController {
 			ManageDto dto = new ManageDto();
 			BeanUtils.copyProperties(form, dto);
 			ManageDto loginUser = manageService.getManager(dto);
-
+			ManageDto.setManageDto(dto);
 			if (loginUser == null) {
 				model.addAttribute("message", "ログインできませんでした");
 				model.addAttribute("ManageForm", form);
 				return "manageLogin";
 			} else {
-				return "redirect:home";
+				return "home";
 			}
 		}
 	}
-
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Model model){
 		LibraryDto dto = new LibraryDto();
-
 		model.addAttribute("LibraryName", dto);
 		return "home";
 	}

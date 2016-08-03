@@ -11,16 +11,16 @@ public class ManageForm {
 	@NotNull(message = "エラー：ログインIDを入力してください")
 	@Min(value=1,message = "エラー：ログインIDは1以上で入力してください")
 	@Max(value=999, message = "エラー：ログインIDは3桁以内で入力してください")
-	private int loginId;
+	private String loginId;
 	@NotBlank(message = "エラー：パスワードを入力してください")
 	@Size(min = 4, max = 16, message = "エラー：パスワードは4桁以上16桁以下で入力してください")
 	private String password;
 	private int libraryId;
 
-	public int getLoginId() {
+	public String getLoginId() {
 		return loginId;
 	}
-	public void setLoginId(int loginId) {
+	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
 

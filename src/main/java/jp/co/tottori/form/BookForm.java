@@ -20,6 +20,7 @@ public class BookForm {
 	@Min(value=1, message = "エラー：棚番号は1以上で入力してください" )
 	private String shelfId;
 	private String documentId;
+	private String documentName;
 	private int libraryId;
 	private int status;
 
@@ -96,6 +97,12 @@ public class BookForm {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public String getDocumentName() {
+		return documentName;
+	}
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
 	}
 
 

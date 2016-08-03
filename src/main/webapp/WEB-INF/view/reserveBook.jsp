@@ -11,7 +11,8 @@
 </head>
 <body>
 <div style="text-align:center">
-	<h1>予約検索画面</h1>
+	<div style="text-align:right"><a href = "home">戻る</a></div>
+	<h1>図書検索画面</h1>
 	<h3>${errorMessage}</h3>
 	<c:forEach items = "${ messages }" var = "message">
 		<li><c:out value = "${ message }" />
@@ -39,10 +40,11 @@
 		    <tr>
 		        <td bgcolor="#99CC00" >書類種類</td>
 		        <td>
-					<select name = "documentId">
+					<select name = "documentName">
         				<option value= "null">(選択出来ます)</option>
 						<c:forEach items = "${ Document }" var = "document">
-							<option value = "${ document.documentId }" <c:if test = "${ document.documentId == book.documentId   }">selected='selected'</c:if> >
+							<option value = "${ document.documentName }" <c:if test = "${ document.documentId == book.documentId }">
+							selected</c:if> >
 							<c:out value = "${ document.documentName }" /></option>
 						</c:forEach>
 					</select>

@@ -57,7 +57,7 @@ public class ReserveController {
 			return "reserveBook";
 		}
 		if(dto.getBookName() == null && dto.getAuthorName() == null && dto.getPublisher() == null && dto.getIsbn() == null
-			 && dto.getShelfId() == null && dto.getDocumentId().equals("null")){
+			 && dto.getShelfId() == null && dto.getDocumentName().equals("null")){
 			List<DocumentDto> documentName = reserveService.documentName();
 			model.addAttribute("Document", documentName);
 			model.addAttribute("errorMessage", "検索条件を入力してください");

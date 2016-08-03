@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.tottori.dto.BlackListDto;
 import jp.co.tottori.dto.BookDto;
+import jp.co.tottori.dto.DocumentDto;
 import jp.co.tottori.dto.LibraryDto;
 import jp.co.tottori.dto.MypageRentalDto;
 import jp.co.tottori.dto.RentalDto;
@@ -31,6 +32,7 @@ import jp.co.tottori.form.UserForm;
 import jp.co.tottori.service.BlackListService;
 import jp.co.tottori.service.BookService;
 import jp.co.tottori.service.ConfirmService;
+import jp.co.tottori.service.ReserveService;
 import jp.co.tottori.service.UserService;
 
 @Controller
@@ -48,13 +50,20 @@ public class BookController {
     @Autowired
     private ConfirmService confirmService;
 
+	@Autowired
+	private ReserveService reserveService;
+
     //図書登録 重複確認 既に登録されています
     @RequestMapping(value = "/bookRegister", method = RequestMethod.GET)
     public String bookInsert(Model model) {
-        BookForm form = new BookForm();
+        BookRegisterForm form = new BookRegisterForm();
+        form.setIsbn(0);
+        form.setShelfId(0);
+		List<DocumentDto> documentName = reserveService.documentName();
+		model.addAttribute("Document", documentName);
         //各図書館の名前を持ってくる
         List<LibraryDto> library = bookService.library();
-        model.addAttribute("bookForm", form);
+        model.addAttribute("insertBook", form);
         model.addAttribute("Library", library);
         return "bookRegister";
     }
@@ -64,7 +73,11 @@ public class BookController {
     	if (result.hasErrors()) {
             List<LibraryDto> library = bookService.library();
             model.addAttribute("Library", library);
-            model.addAttribute("insertUser", form);
+			List<DocumentDto> documentName = reserveService.documentName();
+			model.addAttribute("Document", documentName);
+            form.setIsbn(0);
+            form.setShelfId(0);
+            model.addAttribute("insertBook", form);
             return "bookRegister";
     	} else {
     		BookDto dto = new BookDto();
@@ -76,7 +89,7 @@ public class BookController {
         	if (messages.size() != 0) {
     			List<LibraryDto> library = bookService.library();
     			model.addAttribute("Library", library);
-    			model.addAttribute("insertUser", dto);
+    			model.addAttribute("insertBook", dto);
     	        model.addAttribute("messages", messages);
         		return "bookRegister";
         	}

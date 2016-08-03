@@ -1,9 +1,19 @@
 package jp.co.tottori.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class MypageRentalDto {
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("session")
+public class MypageRentalDto implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private static List<MypageRentalDto> myPageRentalDto;
 	private String userId;
 	private String userName;
 	private String bookName;
@@ -12,6 +22,16 @@ public class MypageRentalDto {
 	private int reserve_id;
 	private Date rentalTime;
 	private Date returnTime;
+
+	public static  List<MypageRentalDto> getMypageRentalDto() {
+		if (myPageRentalDto == null) {
+			myPageRentalDto = new ArrayList<MypageRentalDto>();
+		}
+		return myPageRentalDto;
+	}
+	public static void setMypageRentalDto(List<MypageRentalDto> DtoList) {
+		myPageRentalDto = DtoList;
+	}
 
 	public String getUserId() {
 		return userId;

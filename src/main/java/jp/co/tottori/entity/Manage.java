@@ -6,15 +6,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Manage {
 	@NotNull
-	private int loginId;
+	private String loginId;
 	@NotEmpty
 	private String password;
 	private int libraryId;
 
-	public int getLoginId() {
+	public String getLoginId() {
 		return loginId;
 	}
-	public void setLoginId(int loginId) {
+	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
 
