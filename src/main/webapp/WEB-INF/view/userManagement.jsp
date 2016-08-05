@@ -37,9 +37,6 @@
 		<td><fmt:formatDate value = "${ user.updateTime }" pattern = "yyyy-MM-dd HH:mm:ss" /></td>
 	</c:forEach>
 </table><br>
-<form:form modelAttribute="userForm">
-	ユーザーID：<input name = "userId"/> 更新日時：<input name = "date"/> <input type="submit" value = "変更"/>
-</form:form>
 </div>
 </body>
 </html>

@@ -17,12 +17,8 @@ public class UserInterceptor implements HandlerInterceptor {
     	ManageDto loginUser = ManageDto.getManageDto();
     	if(loginUser == null|| loginUser.getLibraryId() == 0) {
     		response.sendRedirect("http://localhost:8080/Tottori/");
+    		return false;
     	}
-
-//    	MypageUserDto loginUser = MypageUserDto.getMypageUserDto();
-//    	if(loginUser.getUser_name() == null|| loginUser.getUser_id() == null) {
-//    		response.sendRedirect("http://localhost:8080/Tottori/login");
-//    	}
 
         // 戻り値は必ずtrueに変更して下さい。falseだとコントローラクラスが動きません。
         return true;
@@ -37,7 +33,6 @@ public class UserInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        // 空実装
     }
 
 }

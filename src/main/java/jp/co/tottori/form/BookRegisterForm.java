@@ -10,11 +10,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class BookRegisterForm {
 	private int bookId;
-	@NotEmpty(message = "エラー：書名のふりがなを入力してください")
+	@NotEmpty(message = "エラー：書籍名のふりがなを入力してください")
 	private String bookKana;
 	private String bookKanaByte;
 	@Size(max = 100, message = "エラー：書名が100文字を超えています")
-	@NotEmpty(message = "エラー：書名を入力してください")
+	@NotEmpty(message = "エラー：書籍名を入力してください")
 	private String bookName;
 	@Size(max = 255, message = "エラー：著者名が255文字を超えています")
 	private String authorKana;
@@ -29,7 +29,7 @@ public class BookRegisterForm {
 	private Integer isbn;
 	@Min(value=1, message = "エラー：棚番号は1以上で入力してください" )
 	private Integer shelfId;
-	@Min(value=1, message = "エラー：書類種類は1以上で入力してください" )
+	@Min(value=1, message = "エラー：書類種類を選択してください" )
 	private Integer documentId;
 	private int libraryId;
 	private int statusId;

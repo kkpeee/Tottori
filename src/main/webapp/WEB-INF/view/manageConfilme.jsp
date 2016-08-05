@@ -11,15 +11,16 @@
 <title>予約確認</title>
 </head>
 <body>
-<br />
-<table border="" cellpadding="13" align="center">
+<div style="text-align:center">
+	<h1>予約確認画面</h1>
+<table border="1" cellspacing="0" cellpadding="5" bordercolor="#333333" align= "center">
 	<thead>
 		<tr>
-			<th>書名</th>
-			<th>著者名</th>
-			<th>出版社名</th>
-			<th>書類種類</th>
-			<th>保管図書館</th>
+			<th bgcolor="#99CC00">書名</th>
+			<th bgcolor="#99CC00">著者名</th>
+			<th bgcolor="#99CC00">出版社名</th>
+			<th bgcolor="#99CC00">書類種類</th>
+			<th bgcolor="#99CC00">保管図書館</th>
 		</tr>
 	</thead>
 	<tbody align="center">
@@ -44,14 +45,13 @@
 <form:form modelAttribute="reserveForm">
 <div><form:errors path="*"  /></div>
 <br />
-<br />
-ユーザーID：<input name = "userId"/><br>
+ユーザーID：<input name = "userId"/>
 <input type="submit" value = "予約">
 </form:form>
-<br />
 
 <form action="manageConfilme" method="post">
-<input type="submit" name="cancel" value="キャンセル">
+<p><input type="submit" name="cancel" value="キャンセル"></p>
 </form>
+</div>
 </body>
 </html>

@@ -57,6 +57,7 @@ public class BookController {
     @RequestMapping(value = "/bookRegister", method = RequestMethod.GET)
     public String bookInsert(Model model) {
         BookRegisterForm form = new BookRegisterForm();
+        form.setDocumentId(0);
         form.setIsbn(0);
         form.setShelfId(0);
 		List<DocumentDto> documentName = reserveService.documentName();
@@ -75,8 +76,6 @@ public class BookController {
             model.addAttribute("Library", library);
 			List<DocumentDto> documentName = reserveService.documentName();
 			model.addAttribute("Document", documentName);
-            form.setIsbn(0);
-            form.setShelfId(0);
             model.addAttribute("insertBook", form);
             return "bookRegister";
     	} else {

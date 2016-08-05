@@ -53,9 +53,9 @@
 		        <td bgcolor="#99CC00" >書類種類</td>
 		        <td>
 					<select name = "documentId">
-        				<option value= "null">(選択出来ます)</option>
+        				<option value= 0 >(選択出来ます)</option>
 						<c:forEach items = "${ Document }" var = "document">
-							<option value = "${ document.documentId }" <c:if test = "${ document.documentId == book.documentId }">
+							<option value = "${ document.documentId }" <c:if test = "${ document.documentId == insertBook.documentId }">
 							selected</c:if> >
 							<c:out value = "${ document.documentName }" /></option>
 						</c:forEach>
@@ -67,7 +67,7 @@
 		        <td>
 		        	<select name = "libraryId">
 						<c:forEach items = "${ Library }" var = "library">
-							<option value = "${ library.libraryId }" <c:if test = "${ insertUser.libraryId == library.libraryId }">selected</c:if> >
+							<option value = "${ library.libraryId }" <c:if test = "${ insertBook.libraryId == library.libraryId }">selected</c:if> >
 							<c:out value = "${ library.libraryName }" /></option>
 						</c:forEach>
 					</select>

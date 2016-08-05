@@ -57,11 +57,6 @@
 	</tr>
 	</c:forEach>
 </table><br>
-	<form:form modelAttribute="rentalForm">
-		ユーザーID：<input name = "userId" /> ISBN：<input name = "useIsbn" />
-		保管図書館：<input name = "libraryId" /> 更新日時：<input name = "date"/>
-		<input type="submit" value = "変更"/>
-	</form:form>
 </div>
 </body>
 </html>
